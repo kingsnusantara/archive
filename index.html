@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verifikasi Arsip Digital</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+    --primary:#b5121b;
+    --primary-dark:#8f0d15;
+    --text:#17191c;
+    --muted:#737982;
+    --border:#e7e9ec;
+    --surface:#ffffff;
+    --background:#f3f5f7;
+    --success:#167044;
+    --success-bg:#eef9f3;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+}
+
+body{
+    font-family:"Inter",Arial,sans-serif;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(181,18,27,.055),
+            transparent 35%
+        ),
+        var(--background);
+    color:var(--text);
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.wrapper{
+    width:100%;
+    padding:48px 18px;
+}
+
+.container{
+    width:100%;
+    max-width:980px;
+    margin:auto;
+}
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:
+        0 20px 60px rgba(22,27,32,.08),
+        0 2px 8px rgba(22,27,32,.03);
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    height:5px;
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        #d62b34,
+        var(--primary)
+    );
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    padding:30px 38px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+    width:190px;
+    max-width:38vw;
+    height:auto;
+    object-fit:contain;
+}
+
+.divider{
+    width:1px;
+    height:48px;
+    background:var(--border);
+}
+
+.header-title{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.eyebrow{
+    font-size:10px;
+    letter-spacing:1.8px;
+    text-transform:uppercase;
+    font-weight:800;
+    color:var(--muted);
+}
+
+.title{
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:-.3px;
+}
+
+/* =========================
+   DEMO BADGE
+========================= */
+
+.demo-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:8px 12px;
+    border-radius:999px;
+    background:#fff4f4;
+    color:var(--primary);
+    border:1px solid #f3d8da;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:40px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:30px;
+    padding:30px;
+    border-radius:17px;
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #fafbfc
+        );
+    border:1px solid var(--border);
+    margin-bottom:34px;
+}
+
+.hero-label{
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
+    color:var(--muted);
+}
+
+.hero-title{
+    margin:7px 0 5px;
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:-1px;
+}
+
+.hero-description{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+    max-width:600px;
+}
+
+.verified{
+    min-width:125px;
+    height:125px;
+    border-radius:50%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:var(--success-bg);
+    border:8px solid #f7fcf9;
+    outline:1px solid #cde8d9;
+    color:var(--success);
+}
+
+.check{
+    font-size:30px;
+    line-height:1;
+    font-weight:800;
+}
+
+.verified span{
+    margin-top:5px;
+    font-size:10px;
+    letter-spacing:1px;
+    font-weight:800;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    margin-top:32px;
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:14px;
+}
+
+.section-title{
+    margin:0;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    font-weight:800;
+}
+
+.section-line{
+    flex:1;
+    height:1px;
+    background:var(--border);
+    margin-left:18px;
+}
+
+/* =========================
+   INFORMATION GRID
+========================= */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    border:1px solid var(--border);
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.info{
+    padding:20px 22px;
+    border-bottom:1px solid var(--border);
+}
+
+.info:nth-child(odd){
+    border-right:1px solid var(--border);
+}
+
+.info:nth-last-child(-n+2){
+    border-bottom:0;
+}
+
+.label{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.9px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.value{
+    font-size:14px;
+    font-weight:600;
+    word-break:break-word;
+}
+
+/* =========================
+   VERIFICATION AREA
+========================= */
+
+.verification{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.verify-box{
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:22px;
+    background:#fbfcfd;
+}
+
+.verify-label{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:800;
+    margin-bottom:11px;
+}
+
+.verify-code{
+    padding:13px 14px;
+    background:white;
+    border:1px dashed #cfd4d9;
+    border-radius:9px;
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+    font-size:12px;
+    line-height:1.5;
+    word-break:break-all;
+}
+
+/* =========================
+   NOTICE
+========================= */
+
+.notice{
+    margin-top:28px;
+    padding:18px 20px;
+    border-radius:12px;
+    border:1px solid #f0d7d9;
+    background:#fff8f8;
+    color:#665255;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.notice strong{
+    color:var(--primary-dark);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    padding:22px 38px;
+    background:#fafbfc;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.footer-left{
+    font-size:10px;
+    color:#8a9097;
+}
+
+.footer-right{
+    font-size:9px;
+    letter-spacing:1px;
+    font-weight:800;
+    color:#a0a5ab;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:720px){
+
+    .wrapper{
+        padding:18px 12px;
+    }
+
+    .header{
+        padding:24px;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .brand{
+        gap:14px;
+    }
+
+    .logo{
+        width:145px;
+    }
+
+    .divider{
+        height:40px;
+    }
+
+    .title{
+        font-size:15px;
+    }
+
+    .demo-badge{
+        display:none;
+    }
+
+    .content{
+        padding:22px;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        padding:24px;
+    }
+
+    .hero-title{
+        font-size:25px;
+    }
+
+    .verified{
+        width:105px;
+        height:105px;
+        min-width:105px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info:nth-child(odd){
+        border-right:0;
+    }
+
+    .info:nth-last-child(-n+2){
+        border-bottom:1px solid var(--border);
+    }
+
+    .info:last-child{
+        border-bottom:0;
+    }
+
+    .verification{
+        grid-template-columns:1fr;
+    }
+
+    .footer{
+        padding:20px 24px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="container">
+
+<main class="card">
+
+<div class="topbar"></div>
+
+<!-- HEADER -->
+<header class="header">
+
+    <div class="brand">
+
+        <img
+            class="logo"
+            src="https://ojk.go.id/id/banners/14%20OJK.png"
+            alt="Otoritas Jasa Keuangan"
+        >
+
+        <div class="divider"></div>
+
+        <div class="header-title">
+
+            <div class="eyebrow">
+                Sistem Arsip Digital
+            </div>
+
+            <div class="title">
+                Verifikasi Arsip
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="demo-badge">
+        DEMO
+    </div>
+
+</header>
+
+
+<!-- CONTENT -->
+<section class="content">
+
+
+<!-- HERO STATUS -->
+<div class="hero">
+
+    <div>
+
+        <div class="hero-label">
+            Status Verifikasi Arsip
+        </div>
+
+        <div class="hero-title">
+            Arsip Terverifikasi
+        </div>
+
+        <div class="hero-description">
+            Identitas arsip digital berhasil dikenali dan
+            parameter integritas dokumen dinyatakan valid.
+        </div>
+
+    </div>
+
+    <div class="verified">
+
+        <div class="check">
+            ✓
+        </div>
+
+        <span>
+            VALID
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- INFORMASI -->
+<div class="section">
+
+    <div class="section-header">
+
+        <h2 class="section-title">
+            Informasi Arsip
+        </h2>
+
+        <div class="section-line"></div>
+
+    </div>
+
+
+    <div class="info-grid">
+
+        <div class="info">
+
+            <div class="label">
+                Nomor Arsip
+            </div>
+
+            <div class="value">
+                OJK-ARCH-037792040
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                Nomor Referensi
+            </div>
+
+            <div class="value">
+                REF/OJK/037792040
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                Jenis Arsip
+            </div>
+
+            <div class="value">
+                Arsip Digital / Elektronik
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                Status Validasi
+            </div>
+
+            <div class="value">
+                Valid
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                Integritas Dokumen
+            </div>
+
+            <div class="value">
+                Terverifikasi
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="label">
+                Kode Dokumen
+            </div>
+
+            <div class="value">
+                DOC-VERIFY-037792040
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- VERIFICATION -->
+<div class="section">
+
+    <div class="section-header">
+
+        <h2 class="section-title">
+            Parameter Verifikasi
+        </h2>
+
+        <div class="section-line"></div>
+
+    </div>
+
+
+    <div class="verification">
+
+        <div class="verify-box">
+
+            <div class="verify-label">
+                Kode Verifikasi
+            </div>
+
+            <div class="verify-code">
+                DEMO-OJK-VERIFY-037792040
+            </div>
+
+        </div>
+
+
+        <div class="verify-box">
+
+            <div class="verify-label">
+                Digital Fingerprint
+            </div>
+
+            <div class="verify-code">
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- NOTICE -->
+<div class="notice">
+
+    <strong>Catatan:</strong>
+    Halaman ini merupakan antarmuka
+    pengesahan dan verifikasi arsip digital 
+    Halaman ini merupakan dokumen, sertifikat, atau layanan
+    verifikasi resmi Otoritas Jasa Keuangan (OJK).
+
+</div>
+
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-left">
+        Digital Archive Verification Interface
+    </div>
+
+</footer>
+
+
+</main>
+
+</div>
+
+</div>
+
+</body>
+</html>
